@@ -5,6 +5,7 @@ from multiprocessing.dummy import Process
 import cv2 as cv
 from Sections.windowcapture import WindowCapture
 from Sections.vision import Vision
+from Sections.bot import Bot
 import multiprocessing
 from Sections.cascadedetect import Detection
 
@@ -16,11 +17,14 @@ def process1(queue):
     detect = Detection('cascade/cascade.xml')
     # Starts a Vision thread we can use to draw.
     vision = Vision()
+    bot = Bot()
 
     # Starts screen capturing.
     wincap.start()
     # Starts our detection thread.
     detect.start()
+    # Starts or bot thread.
+    bot.start()
 
     # This is the loop that updates, detects, and draw our squares.
     while(True):
@@ -29,7 +33,7 @@ def process1(queue):
             continue
         # Captures the current frame of the game for analysis.
         detect.update(wincap.screenshot)
-
+        bot.update_points(vision.get_click_points(detect.rectangles))
         # Draws the rectangles on the current screenshot.
         detection_image = vision.draw_rectangles(wincap.screenshot, detect.rectangles)
         # Displays the edited screenshot.
@@ -40,6 +44,7 @@ def process1(queue):
             cv.destroyAllWindows()
             wincap.stop()
             detect.stop()
+            bot.stop()
             break
 
 # Main func later will have other functions for reacting to the inputs

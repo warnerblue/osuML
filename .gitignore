@@ -9,6 +9,8 @@ __pycache__/
 # Project Specific Folders
 Sections/positive/*
 Sections/negative/*
+cascade/params.xml
+cascade/stage*
 roadmap.txt
 pos.txt
 neg.txt
