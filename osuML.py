@@ -33,7 +33,7 @@ def process1(queue):
             continue
         # Captures the current frame of the game for analysis.
         detect.update(wincap.screenshot)
-        bot.update_points(vision.get_click_points(detect.rectangles))
+        bot.update_points(wincap.get_screen_positions(vision.get_click_points(detect.rectangles)))
         # Draws the rectangles on the current screenshot.
         detection_image = vision.draw_rectangles(wincap.screenshot, detect.rectangles)
         # Displays the edited screenshot.

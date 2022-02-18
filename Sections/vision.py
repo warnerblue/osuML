@@ -26,11 +26,15 @@ class Vision:
         # Sets our line type to a solid line.
         line_type = cv.LINE_4
 
+        i = 0
         for (x, y, w, h) in rectangles:
             # determine the box positions
             top_left = (x, y)
             bottom_right = (x + w, y + h)
             # draw the box
+            cv.text
             cv.rectangle(haystack_img, top_left, bottom_right, line_color, lineType=line_type)
+            cv.putText(haystack_img, str(i), top_left, cv.FONT_HERSHEY_PLAIN, 1, (255, 0, 0), 2, cv.LINE_AA)
+            i += 1
 
         return haystack_img

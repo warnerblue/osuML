@@ -89,8 +89,11 @@ class WindowCapture:
         win32gui.EnumWindows(winEnumHandler, None)
 
     # This function is used to translate screenshot coordinates to desktop coordinates.
-    def get_screen_position(self, pos):
-        return (pos[0] + self.offset_x, pos[1] + self.offset_y)
+    def get_screen_positions(self, positions):
+        pos = []
+        for (x, y) in positions:
+            pos.append(((x + self.offset_x), (y + self.offset_y)))
+        return pos
 
     # Starts a thread.
     def start(self):

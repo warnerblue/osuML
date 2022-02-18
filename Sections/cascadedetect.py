@@ -2,6 +2,7 @@
 import cv2 as cv
 from threading import Thread, Lock
 import numpy as np
+import time
 
 # This lets us import it into other py files.
 class Detection:
@@ -44,7 +45,7 @@ class Detection:
                 # This does our object detection using our cascade model.
                 rectangles = self.cascade.detectMultiScale(self.screenshot)
                 # This combines our detects that are small and close together.
-                rectList = cv.groupRectangles(np.concatenate((rectangles, rectangles)), 1, eps=.05)[0]
+                rectList = cv.groupRectangles(np.concatenate((rectangles, rectangles)), 1, eps=.1)[0]
                 # This locks the thread so we can update our results. If we dont do this we could run into errors.
                 self.lock.acquire()
                 self.rectangles = rectList
